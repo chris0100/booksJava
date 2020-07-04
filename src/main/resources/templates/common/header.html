@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+
+<head th:fragment="common-header">
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Le's BookStore</title>
+
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/css/bootstrap-grid.min.css}" rel="stylesheet">
+    <link th:href="@{/css/bootstrap-reboot.min.css}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+
+    <link rel="icon" th:href="@{/img/apple-touch-icon.png}">
+
+
+
+</head>
+
+
+<body>
+<div th:fragment="navbar">
+
+    <div class="bg-warning" style="width: 100%; height: 20px;"></div>
+
+    <!--NAVBAR*******************************************************-->
+    <!--*************************************************************-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" th:href="@{/}">Le's Book Store</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" th:href="@{/bookshelf}" id="navbarDropdown" role="button"
+                       data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        BOOKS
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" th:href="@{/bookshelf}">Browse the bookshelf</a>
+                        <a class="dropdown-item" th:href="@{/hours}">Store hours &#38; Directions</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" th:href="@{/faq}">FAQ</a>
+                    </div>
+                </li>
+                <form class="form-inline my-2 my-lg-0" th:action="@{/searchBook}" method="post">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Book title" name="keyword"
+                           aria-label="Search">
+                    <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a sec:authorize="isAuthenticated()" th:href="@{/shoppingCart/cart}" class="nav-link">SHOPPING CART</a></li>
+                <li class="nav-item"><a sec:authorize="isAnonymous()" th:href="@{/login}" class="nav-link">MY ACCOUNT</a></li>
+                <li class="nav-item"><a sec:authorize="isAuthenticated()" th:href="@{/myProfile}" class="nav-link">MY ACCOUNT</a></li>
+                <li class="nav-item"><a sec:authorize="isAuthenticated()" th:href="@{/logout}" class="nav-link">LOGOUT</a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+
+
+
+
+
+
+<div th:fragment="footer" class="bg-warning">
+    <br />
+    <br />
+    <footer>
+        <div class="row">
+            <div class="col-sm-3 footerleft">
+                <div class="logofooter">
+                    <a th:href="@{/}"><img class="img-responsive"
+                                           src="/img/logo.png" style="width: 200px;" /></a>
+                </div>
+                <p>
+                    Le's Independent Book Store. <br />Serving our customers with the
+                    best.
+                </p>
+            </div>
+            <div class="col-sm-3 paddingtop-bottom">
+                <h6 class="heading7">CONTACT</h6>
+                <ul class="post">
+                    <p>
+                        <i class="fa fa-map-pin"></i> 123 XXX Ave<br /> Boston MA, USA
+                        02112
+                    </p>
+                    <p>
+                        <i class="fa fa-phone"></i> Phone (USA) : +1 999 999 9999
+                    </p>
+                    <p>
+                        <i class="fa fa-envelope"></i> E-mail : info@lebookstore.com
+                    </p>
+                </ul>
+            </div>
+            <div class="col-sm-3 paddingtop-bottom">
+                <h6 class="heading7">LINKS</h6>
+                <ul class="footer-ul">
+                    <li><a href="#"> Privacy Policy</a></li>
+                    <li><a href="#"> Terms &#38; Conditions</a></li>
+                    <li><a href="#"> Frequently Ask Questions</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-3 paddingtop-bottom">
+                <h6 class="heading7">STORE HOURS</h6>
+                <div class="post">
+                    <p>Monday - Saturday: 9am - 11pm</p>
+                    <p>Sunday: 10am - 10pm</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div class="copyright">
+        <div class="col-sm-6">
+            <p>© 2020 - All Rights Reserved</p>
+        </div>
+        <div class="col-sm-6">
+            <ul class="bottom_ul">
+                <li><a href="#">About us</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">Faq's</a></li>
+                <li><a href="#">Contact us</a></li>
+                <li><a href="#">Site Map</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div th:fragment="body-bottom-scripts">
+    <!-- Bootstrap core JavaScript
+================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            crossorigin="anonymous"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/scripts.js}"></script>
+
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="common/header :: common-header"/>
+
+
+<body>
+
+<div th:replace="common/header :: navbar"/>
+
+
+<div class="container">
+    <div class="row" style="margin-bottom: -80px;">
+        <div class="col-sm-8">
+            <h2 class="section-headline"><span th:text="${user}?  ${#strings.toUpperCase(user.username)} : 'All books'"></span></h2>
+        </div>
+
+        <div class="col-sm-4">
+            <img th:src="@{/img/logo.png}" alt="logo" class="img-fluid">
+        </div>
+    </div>
+
+    <hr style="position:absolute; width: 60%; height: 6px; background-color: #333; z-index: -1;margin-top: -40px;"/>
+
+    <img th:src="@{img/wood.png}" alt="wood" class="img-fluid" style="margin-top: 20px">
+
+    <div class="row" style="margin-top: 120px;">
+
+
+        <div class="col-sm-3">
+            <h3><label for="category">Category</label></h3>
+            <div class="list-group" id="category">
+                <a th:href="@{/bookshelf(category='all')}" th:classappend="${activeAll}? 'active'" class="list-group-item">All</a>
+                <a th:href="@{/searchByCategory(category='Management')}" th:classappend="${activeManagement}? 'active'" class="list-group-item">Management</a>
+                <a th:href="@{/searchByCategory(category='Fiction')}" th:classappend="${activeFiction}? 'active'" class="list-group-item">Fiction</a>
+                <a th:href="@{/searchByCategory(category='Engineering')}" th:classappend="${activeEngineering}? 'active'" class="list-group-item">Engineering</a>
+                <a th:href="@{/searchByCategory(category='Programming')}" th:classappend="${activeProgramming}? 'active'" class="list-group-item">Programming</a>
+                <a th:href="@{/searchByCategory(category='Arts &amp; Literature')}" th:classappend="${activeArtsLiterature}? 'active'" class="list-group-item">Arts &amp; Literature</a>
+            </div>
+        </div>
+
+
+
+        <div class="col-sm-9">
+
+            <!--si la lista esta vacia muestra mensaje de error-->
+            <div th:if="${emptyList}">
+                <h5 class="font-italic">Ooops, no result is found. Try something else or try again.</h5>
+            </div>
+
+
+
+                <div data-th-each="book : ${bookList}">
+
+                        <div th:if="${book != null}">
+
+                            <div class="row my-5">
+
+                                <div class="col-sm-4 justify-content-end d-flex">
+                                    <a th:href="@{/bookDetail?id=}+${book.id}"><img th:src="#{adminPath}+@{/img/book/}+${book.id}+'.png'"
+                                         class="img-fluid" style="width: 200px; height: 300px;"></a>
+                                </div>
+
+
+                                <div class="col-sm-8">
+                                    <a th:href="@{/bookDetail?id=}+${book.id}"><h4 th:text="${book.title}"></h4></a>
+                                    <span th:text="${book.publicationDate}"></span>
+                                    <span th:text="${book.author}"></span>
+                                    <span th:text="${#strings.capitalize(book.format)}"></span></a>
+                                    <span th:text="${book.numberOfPages}"></span><span> pages</span>
+                                    <a th:href="@{/bookDetail?id=}+${book.id}"><h3 class="text-danger font-weight-bold ">$ <span
+                                            th:text="${#numbers.formatDecimal(book.ourPrice, 0, 'COMMA', 2, 'POINT')}"></span></h3></a>
+                                    <span style="text-decoration: line-through;">$ <span
+                                            th:text="${#numbers.formatDecimal(book.listPrice, 0, 'COMMA', 2, 'POINT')}"></span></span>
+
+                                    <p th:utext="${#strings.abbreviate(book.description, 500)}"></p>
+                                </div>
+                            </div>
+
+                        </div>
+
+                </div>
+
+
+
+
+        </div>
+    </div>
+</div> <!-- /container -->
+
+
+<div th:replace="common/header :: body-bottom-scripts"/>
+
+
+</body>
+</html>

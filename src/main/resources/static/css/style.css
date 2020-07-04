@@ -1,0 +1,47 @@
+body{
+    padding-bottom: 20px;
+    background-color: rgba(252, 248, 246, 0.68);
+}
+
+hr{
+    border: none;
+    height: 1px;
+    color: #333;
+    background-color: #333;
+}
+
+.navbar{
+    margin-bottom: 20px;
+}
+
+.box{
+   border: 1px solid red;
+}
+
+.home-headline{
+    font-family: 'Times New Roman',Time, serif;
+    font-size: 24px;
+    color: #ffffff;
+    margin: auto;
+    text-align: center;
+    margin-top: 13px;
+}
+
+.home-headline span{
+    background-color: #231f20;
+    padding:5px 22px;
+}
+
+.section-headline{
+    font-family: 'Times New Roman',Time, serif;
+    font-size: 24px;
+    color: #ffffff;
+    margin: auto;
+    text-align: center;
+    margin-top: 63px;
+}
+
+.section-headline span{
+    background-color: #231f20;
+    padding: 5px 22px;
+}

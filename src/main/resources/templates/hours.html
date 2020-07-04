@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="common/header :: common-header"/>
+
+
+<body>
+
+<div th:replace="common/header :: navbar"/>
+
+<div class="container">
+    <div class="row" style="margin-bottom: -80px;">
+        <div class="col-sm-8">
+            <h2 class="section-headline"><span>User Account</span></h2>
+        </div>
+
+        <div class="col-sm-4">
+            <img src="/img/logo.png" alt="logo" class="img-fluid">
+        </div>
+    </div>
+    <hr style="position:absolute; width: 85%; height: 6px; background-color: #333; z-index: -1;margin-top: -40px;"/>
+    <img src="img/wood.png" alt="wood" class="img-fluid" style="margin-top: 20px">
+
+
+    <div class="row mt-2">
+
+        <div class="col-sm-9">
+            <img th:src="@{/img/hours.png}" class="img-fluid">
+        </div>
+
+    </div>
+
+
+
+</div> <!-- /container -->
+
+
+<div th:replace="common/header :: body-bottom-scripts"/>
+
+</body>
+</html>

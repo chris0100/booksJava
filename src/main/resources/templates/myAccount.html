@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="common/header :: common-header"/>
+
+
+<body>
+
+<div th:replace="common/header :: navbar"/>
+
+<div class="container">
+    <div class="row" style="margin-bottom: -80px;">
+        <div class="col-sm-8">
+            <h2 class="section-headline"><span>User Account</span></h2>
+        </div>
+
+        <div class="col-sm-4">
+            <img src="/img/logo.png" alt="logo" class="img-fluid">
+        </div>
+    </div>
+    <hr style="position:absolute; width: 85%; height: 6px; background-color: #333; z-index: -1;margin-top: -40px;"/>
+    <img src="img/wood.png" alt="wood" class="img-fluid" style="margin-top: 20px">
+
+    <div class="row" style="margin-top: 120px;">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-9">
+
+            <!--Nav tabs-->
+            <ul class="nav nav-tabs">
+
+                <li class="nav-item">
+                    <a href="#tab-1" data-toggle="tab" class="nav-link"
+                       th:classappend="${classActiveNewAccount} ? 'active'"><span
+                            style="color:red;">Create new account</span></a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="#tab-2" data-toggle="tab" class="nav-link" th:classappend="${classActiveLogin} ? 'active'"><span
+                            style="color:red;">Log in</span></a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="#tab-3" data-toggle="tab" class="nav-link"
+                       th:classappend="${classActiveForgetPassword} ? 'active'"><span
+                            style="color:red;">Forget Password</span></a>
+                </li>
+            </ul>
+
+
+            <!--Tab panels-->
+            <div class="tab-content" id="nav-tabContent">
+
+                <!--CREATE NEW USER-->
+                <div class="tab-pane fade" id="tab-1" th:classappend="${classActiveNewAccount}? 'show active'">
+
+                    <div style="background-color: #ededed;margin-top: 20px;">
+
+
+                        <!--LA ALERTA SE MUESTRA LUEGO DE HACER EL REGISTRO DEL NUEVO USUARIO-->
+                        <div class="alert alert-info" th:if="${emailSent}">An email has been sent to the email address
+                            you just registered.
+                            Please validate your email account.
+                        </div>
+                        <!--*****************************************************************************-->
+
+
+                        <form class="p-3" th:action="@{/newUser}" method="post">
+
+                            <div class="form-group">
+                                <label for="newusername">* Username</label> &nbsp;<span style="color: red;"
+                                                                                        th:if="${usernameExists}">Username already exists.</span>
+
+                                <input type="text" class="form-control" id="newusername" name="username">
+                                <small id="userHelp" class="form-text text-muted">Enter your username here</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">* Email</label> &nbsp;<span style="color: red;"
+                                                                               th:if="${emailExists}">Email already exists.</span>
+
+                                <input type="email" class="form-control" id="email" name="email">
+                                <small id="emailHelp" class="form-text text-muted">A valid email address. all emails
+                                    from the system will be sent to this address. the email address is not made public
+                                    and will only
+                                    used if you wish to receive a new password or wish to receive certain
+                                    notification.</small>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Create new account</button>
+                        </form>
+                    </div>
+                </div>
+
+
+                <!--LOGIN USER <div class="tab-pane fade" id="tab-1" th:classappend="${classActiveNewAccount}? 'show active'">-->
+                <div class="tab-pane fade" id="tab-2" th:classappend="${classActiveLogin}? 'show active'">
+
+                    <div style="background-color: #ededed;margin-top: 20px;">
+
+                        <!--REVISA SI HAY ERRORES EN EL ENVIO DE DATOS-->
+                        <div class="alert alert-info" th:if="${param.error != null}">Incorrect username or password
+                        </div>
+
+                        <form class="p-3" method="post" th:action="@{/login}">
+                            <div class="form-group">
+                                <label for="newusername">* Username:</label>
+                                <input type="text" class="form-control" id="newusernameL" name="username">
+                                <small id="userHelpL" class="form-text text-muted">Enter your username here</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="password">* Password:</label>
+                                <input type="password" class="form-control" id="password" name="password">
+                                <small id="passwordHelp" class="form-text text-muted">Enter the password valid.</small>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Log in</button>
+                        </form>
+                    </div>
+                </div>
+
+
+                <!--RECOVER PASSWORD-->
+                <div class="tab-pane fade" id="tab-3" th:classappend="${classActiveForgetPassword}? 'show active'">
+
+                    <div style="background-color: #ededed;margin-top: 20px;">
+
+                        <!--SI EL EMAIL NO EXISTE LO NOTIFICA-->
+                        <div class="alert alert-danger" th:if="${emailNotExist}">The email is not in the database</div>
+
+                        <!--SI EL EMAIL  EXISTE LO NOTIFICA ENVIANDO EL CORREO PARA RECUPERAR-->
+                        <div class="alert alert-success" th:if="${forgetPasswordEmailSent}">Check your email</div>
+
+                        <form class="p-3" th:action="@{/forgetPassword}">
+                            <div class="form-group">
+                                <label for="recoverEmail">* Your Email:</label>
+                                <input type="text" class="form-control" id="recoverEmail" name="email">
+                                <small id="recoverEmailHelp" class="form-text text-muted">Enter your email here</small>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div> <!-- /container -->
+
+
+<div th:replace="common/header :: body-bottom-scripts"/>
+
+</body>
+</html>
